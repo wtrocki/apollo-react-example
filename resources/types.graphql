@@ -1,0 +1,5 @@
+type Feedback @model {
+  id: ID! @isUnique
+  text: String!
+  votes: Number!
+}
