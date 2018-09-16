@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import { graphql } from 'react-apollo';
 
-import AddTodo from './AddTodo';
-import TodoList from './TodoList';
+import AddFeedback from './AddFeedback';
+import FeedbackList from './FeedbackList';
 import Footer from './Footer';
 import Logos from './Logos';
 
@@ -14,7 +14,7 @@ import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
 
 import ReactCardFlip from 'react-card-flip';
-import { TODOS, TODOS_SUBSCRIPTION } from './graphql';
+import { FEEDBACKS, FEEDBACK_SUBSCRIPTION } from './graphql';
 
 import './App.css';
 
@@ -61,7 +61,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.props.subscribeToNewTodos()
+    this.props.subscribeToNewFeedbacks()
   }
 
   render() {
@@ -71,39 +71,16 @@ class App extends Component {
           <div className="header" onClick={this.handleClick.bind(this)}>
           Feedback app <FontIcon className="material-icons" style={styles.icon}>info</FontIcon>
           </div>
-          <AddTodo addTodo={this.props.addTodo}/>
-          {this.props.todos && this.props.todos.length > 0 && 
-          <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
-            tabItemContainerStyle={styles.tabs}>
-            <Tab 
-              style={styles.tab} 
-              buttonStyle={styles.button} 
-              label="All" 
-              value="SHOW_ALL">
-            </Tab>
-            <Tab 
-              style={styles.tab} 
-              buttonStyle={styles.button} 
-              label="Active" 
-              value="SHOW_ACTIVE">
-            </Tab>
-            <Tab 
-              style={styles.tab} 
-              buttonStyle={styles.button} 
-              label="Complete" 
-              value="SHOW_COMPLETED">
-            </Tab>
-          </Tabs>}
+          <AddFeedback addFeedback={this.props.addFeedback}/>
+
           {this.props.loading &&
             <CircularProgress size={80} thickness={5} />
           }
           <div className="turn" style={{ opacity: this.state.isFlipped?'0':'1' }}>
-            <TodoList
-              todos={this.props.todos || []}
+            <FeedbackList
+              feedbacks={this.props.feedbacks || []}
               filter={this.state.currentFilter}
-              toggleTodo={this.props.toggleTodo}
+              toggleFeedback={this.props.toggleFeedback}
             />
           </div>
           <Footer/>
@@ -122,67 +99,67 @@ class App extends Component {
   }
 }
 
-const withTodos = graphql(
-  TODOS,
+const withFeedbacks = graphql(
+  FEEDBACKS,
   {
     props: ({ ownProps, data }) => {
       if (data.loading) return { loading: true }
       if (data.error) return { hasErrors: true }
       return {
-        todos: data.allTodoes,
+        feedbacks: data.allFeedbacks,
       }
     },
   }
 )
 
-const withSubscription = graphql(TODOS,
+const withSubscription = graphql(FEEDBACKS,
   {
     props: ({ data: { subscribeToMore } }) => ({
-      subscribeToNewTodos() {
+      subscribeToNewFeedbacks() {
         return subscribeToMore({
-          document: TODOS_SUBSCRIPTION,
+          document: FEEDBACK_SUBSCRIPTION,
           updateQuery: (state, { subscriptionData }) => {
-            let todos, t;
-            const {mutation, node} = t = subscriptionData.data.Todo;
+            let feedbacks, t;
+            const {mutation, node} = t = subscriptionData.data.Feedback;
   
             switch(mutation) {
               case "CREATED": 
               case "UPDATED":
                 let exists = false;
                 // UPDATE
-                todos = state.allTodoes.map(todo => {
-                  // covers updates and new todos
+                feedbacks = state.allFeedbacks.map(feedback => {
+                  // covers updates and new feedbacks
                   // created by this client
-                  if(todo.id === node.id) {
+                  if(feedback.id === node.id) {
                     exists = true;
                     return {
                       id: node.id,
                       text: node.text,
-                      complete: node.complete,
-                      __typename: "Todo"
+                      votes: node.votes,
+                      __typename: "Feedback"
                     }
                   }
-                  return todo;
+                  return feedback;
                 })
                 // NEWLY CREATED (other clients)
                 if (!exists) {
-                  todos.push({
+                  feedbacks.push({
                     id: node.id,
                     text: node.text,
-                    complete: node.complete,
-                    __typename: "Todo"
+                    votes: node.votes,
+                    __typename: "Feedback"
                   });                
                 }
                 break;
               case "DELETED": 
-                todos = state.allTodoes
-                  .filter(todo => todo.id !== t.previousValues.id);
+                feedbacks = state.allFeedbacks
+                  .filter(feedback => feedback.id !== t.previousValues.id);
                 break;
               default: break;
             }
   
             return {
-              allTodoes: todos
+              allFeedbacks: feedbacks
             }
           },
         })
@@ -191,4 +168,4 @@ const withSubscription = graphql(TODOS,
   },
 )
 
-export default withTodos(withSubscription(App))
+export default withFeedbacks(withSubscription(App))

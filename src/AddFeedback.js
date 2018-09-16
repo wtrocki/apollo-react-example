@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import { graphql } from 'react-apollo';
-import { ADD_TODO } from './graphql';
+import { ADD_FEEDBACK } from './graphql';
 
 const styles = {
   input: {
@@ -12,7 +12,7 @@ const styles = {
   }
 };
 
-class AddTodo extends React.Component {
+class AddFeedback extends React.Component {
   state = {
     value: '',
   };
@@ -25,14 +25,14 @@ class AddTodo extends React.Component {
 
   handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      this.props.addTodo(this.state.value);
+      this.props.addFeedback(this.state.value);
       this.setState({ value: '' });
     }
   }
 
   render () {
     return (
-      <div className="add-todo">
+      <div className="add-feedback">
         <TextField
           hintText="Comment on today session"
           value={this.state.value}
@@ -47,9 +47,9 @@ class AddTodo extends React.Component {
   }
 }
 
-const withAddTodo = graphql(ADD_TODO, {
+const withAddFeedback = graphql(ADD_FEEDBACK, {
   props: ({ ownProps, mutate }) => ({
-    addTodo (text) {
+    addFeedback (text) {
       return mutate({
         variables: { text },
       })
@@ -57,4 +57,4 @@ const withAddTodo = graphql(ADD_TODO, {
   }),
 })
 
-export default withAddTodo(AddTodo)
+export default withAddFeedback(AddFeedback)

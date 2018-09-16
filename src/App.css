@@ -19,7 +19,7 @@ body {
   padding: 10px;
   cursor: pointer;
 }
-.add-todo {
+.add-feedback {
   padding: 15px;
 }
 .container {
@@ -31,7 +31,7 @@ body {
 }
 
 .list {
-  height: 700px;
+  height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
   margin-top: 5px;
@@ -80,7 +80,7 @@ body {
     margin: 0px 0px 20px 0px;
     padding: 10px;
   }
-  .add-todo, .chips, .logos {
+  .add-feedback, .chips, .logos {
     padding: 15px;
   }
   .list {
