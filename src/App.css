@@ -19,15 +19,18 @@ body {
   padding: 10px;
   cursor: pointer;
 }
+
 .add-feedback {
   padding: 15px;
 }
+
 .container {
   cursor: pointer;
   padding: 5px 0px 5px 0px;
 }
+
 .container:hover {
-  background-color: #fce4ec;
+  background-color: #3f3c9e2f;
 }
 
 .list {
@@ -48,10 +51,32 @@ body {
   border-radius: 6px;
   vertical-align: sub;
 }
+
 .message {
   font-size: 20px;
   margin-left: 10px;
 }
+
+.feedback {
+  margin-left: 10px;
+  font-size: 20px;
+  letter-spacing: 0.4px;
+  word-spacing: -0.8px;
+  color: #0a054e;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+}
+
+.votes {
+  margin-top: 10px;
+  margin-left: 10px;
+  color:#69263c;
+  font-size: 12px;
+}
+
 .box {
   margin: 0px 20px 0px 20px;
 }

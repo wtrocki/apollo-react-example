@@ -8,9 +8,7 @@ import Footer from './Footer';
 import Logos from './Logos';
 
 import {Card} from 'material-ui/Card';
-import {Tabs, Tab} from 'material-ui/Tabs';
 import CircularProgress from 'material-ui/CircularProgress';
-import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
 
 import ReactCardFlip from 'react-card-flip';

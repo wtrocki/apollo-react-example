@@ -2,11 +2,6 @@ import React from 'react'
 import { graphql } from 'react-apollo';
 import { FEEDBACKS, VOTE_FEEDBACK } from './graphql';
 
-const styles = {
-  votes: {
-    textAlign: 'right'
-  },
-};
 
 class Feedback extends React.Component {
 
@@ -34,8 +29,8 @@ class Feedback extends React.Component {
   render() {
     return (
       <div className="container" onClick={this.updateCheck.bind(this)}>
-        <div className="box message">{this.props.feedback.text}</div>
-        <div style={styles.votes}>{"(votes:" + this.props.feedback.votes + ")"}
+        <div className="feedback">{this.props.feedback.text}</div>
+        <div className="votes">{ this.props.feedback.votes + " Votes"}
         </div>
       </div>
     )
