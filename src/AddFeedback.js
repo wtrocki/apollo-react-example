@@ -34,7 +34,7 @@ class AddFeedback extends React.Component {
     return (
       <div className="add-feedback">
         <TextField
-          hintText="Comment on today session"
+          hintText="Any Questions or Comments?"
           value={this.state.value}
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress.bind(this)}

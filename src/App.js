@@ -67,10 +67,10 @@ class App extends Component {
       <ReactCardFlip isFlipped={this.state.isFlipped}>
         <Card className="card" key="front">
           <div className="header" onClick={this.handleClick.bind(this)}>
-          Feedback app <FontIcon className="material-icons" style={styles.icon}>info</FontIcon>
+          Mobile Feedback<FontIcon className="material-icons" style={styles.icon}>info</FontIcon>
           </div>
           <AddFeedback addFeedback={this.props.addFeedback}/>
-
+          
           {this.props.loading &&
             <CircularProgress size={80} thickness={5} />
           }
@@ -85,9 +85,9 @@ class App extends Component {
         </Card>
         <Card className="card" key="back">
           <div className="header" onClick={this.handleClick.bind(this)}>
-            GraphQL and React
+            Info<FontIcon className="material-icons" style={styles.icon}>info</FontIcon>
           </div>
-          <div> Made with Love using </div>
+          <div className="message"> Made with Love using </div>
           <Logos/>
           <div className="empty"></div>
           <Footer/>
