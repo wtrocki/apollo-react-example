@@ -28,7 +28,7 @@ This is the schema used
 type Feedback @model {
   id: ID! @isUnique
   text: String!
-  votes: Number!
+  votes: Int!
 }
 ```
 
