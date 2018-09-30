@@ -18,10 +18,11 @@ class Feedback extends React.Component {
   }
 
   updateCheck() {
-    this.props.toggleFeedback(this.props.feedback.id, this.state.votes)
+    const votes = this.state.votes + 1;
+    this.props.toggleFeedback(this.props.feedback.id, votes)
     this.setState((state) => {
       return {
-        votes: state.votes + 1,
+        votes: votes,
       };
     });
   }
@@ -30,7 +31,7 @@ class Feedback extends React.Component {
     return (
       <div className="container" onClick={this.updateCheck.bind(this)}>
         <div className="feedback">{this.props.feedback.text}</div>
-        <div className="votes">{ this.props.feedback.votes + " Votes"}
+        <div className="votes">{this.props.feedback.votes + " Votes"}
         </div>
       </div>
     )

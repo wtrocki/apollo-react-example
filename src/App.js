@@ -45,17 +45,12 @@ const styles = {
 class App extends Component {
 
   state = {
-    currentFilter: 'SHOW_ALL',
     isFlipped: false,
   };
 
   handleClick(e) {
     e.preventDefault();
     this.setState({ isFlipped: !this.state.isFlipped });
-  }
-
-  handleChange = filter => {
-    this.setState({ currentFilter: filter });
   }
 
   componentWillMount() {
@@ -67,7 +62,7 @@ class App extends Component {
       <ReactCardFlip isFlipped={this.state.isFlipped}>
         <Card className="card" key="front">
           <div className="header" onClick={this.handleClick.bind(this)}>
-          Mobile Feedback<FontIcon className="material-icons" style={styles.icon}>info</FontIcon>
+          Feedback App<FontIcon className="material-icons" style={styles.icon}>info</FontIcon>
           </div>
           <AddFeedback addFeedback={this.props.addFeedback}/>
           
@@ -77,7 +72,6 @@ class App extends Component {
           <div className="turn" style={{ opacity: this.state.isFlipped?'0':'1' }}>
             <FeedbackList
               feedbacks={this.props.feedbacks || []}
-              filter={this.state.currentFilter}
               toggleFeedback={this.props.toggleFeedback}
             />
           </div>

@@ -4,10 +4,10 @@ import Feedback from './Feedback'
 export default class FeedbackList extends React.Component {
 
 
-  renderFeedbacks () {
+  renderFeedbacks() {
     const feedbacks = [...this.props.feedbacks];
     return feedbacks
-      .reverse()
+      .sort((a, b) => { return a.votes < b.votes })
       .map(feedback =>
         <Feedback
           key={feedback.id}
@@ -17,9 +17,9 @@ export default class FeedbackList extends React.Component {
       )
   }
 
-  render () {
+  render() {
     let feedbacks = null;
-    if (this.props.feedbacks.length===0) {
+    if (this.props.feedbacks.length === 0) {
       feedbacks = <div className="list message box">Ups! There are no feedback yet...</div>
     } else {
       feedbacks = <div className="list">{this.renderFeedbacks()}</div>
